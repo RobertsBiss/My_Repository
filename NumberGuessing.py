@@ -1,5 +1,6 @@
 import random
 import sqlite3
+import logging
 con = sqlite3.connect('scoreboard.db')
 cur = con.cursor()
 attempts_list = []
@@ -47,3 +48,11 @@ cur.execute('CREATE TABLE IF NOT EXISTS result ([player_name] VARCHAR[15], [atte
 cur.execute('INSERT INTO result (player_name, attempts) VALUES (?, ?)', (name1, min(attempts_list)))
 con.commit()
 con.close()
+logging.basicConfig(
+    level=logging.INFO,
+    format='{asctime} {message}',
+    style='{',
+    filename='mylog.log',
+    filemode='w'
+)
+logging.info("%s played the number guessing game" %name1)
