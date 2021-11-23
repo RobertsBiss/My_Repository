@@ -1,5 +1,6 @@
 import random
 import sqlite3
+import logging
 con = sqlite3.connect('scoreboard.db')
 cur = con.cursor()
 attempts_list = []
@@ -56,3 +57,12 @@ cur.execute('INSERT INTO result (player_name, attempts) VALUES (?, ?)', (name1, 
 # Tiek saglabātas datu bāzes izmaniņas un tiek aizvērts savienojums.
 con.commit()
 con.close()
+# Katru reizi, kad spēle tiek izspēlēta, pieraksta spēlētāju, kurš to spēlējis.
+logging.basicConfig(
+    level=logging.INFO,
+    format='{asctime} {message}',
+    style='{',
+    filename='mylog.log',
+    filemode='w'
+)
+logging.info("%s played the number guessing game" %name1)
